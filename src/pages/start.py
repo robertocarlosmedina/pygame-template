@@ -53,10 +53,12 @@ class Game_start:
 
             # Controling if the process of drawing runned 6 times to pass this start page
             if self.count >= 3:    
-                return "game_menu"
+                self.game_object.current_link = "game_menu"
+                break
 
-
-            self.game_object.game_events_handler()
+            if self.game_object.game_events_handler():
+                break
+            
             pygame.display.update()
 
     # Method that control the circle animation display and the time 

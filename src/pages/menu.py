@@ -7,7 +7,7 @@ __status__ = "Production"
 
 """
     This is the main menu class. This class controls all the navegation that
-    can be made on the game.
+    can be done on the game.
 
 """
 
@@ -81,10 +81,11 @@ class Game_menu:
         return True
 
     def run_link(self) -> str:
+        change_page_by_event = change_page_by_action = False
 
         while True:
             self.game_obj.screen_fill_bg()
-            self.game_obj.game_events_handler()
+            
 
             self.mouse_pos = pygame.mouse.get_pos()
             font_size = pygame.font.Font.size(fonts.montserrat_size_30.value, get_screen_text("game_tittle"))
@@ -93,20 +94,23 @@ class Game_menu:
             draw_header_styled_lines(self.game_obj.screen, self.game_obj.screen_size)
             self.game_play_buttons()
 
-            if self.on_press_delay_control():
-                self.button_clicked = ""
-                return "game_menu"
+            
 
             if (self.button_clicked != "" ):
                 for key,value in self.game_buttons.items():
                     if(self.button_clicked == value):
-                        self.button_clicked = ""
-                        return key
+                        self.game_obj.current_link = key
+                        change_page_by_action = True
+                        break
 
-                for key,value in self.algorithms_buttons.items():
-                    if(self.button_clicked == value):
-                        self.button_clicked = ""
-                        return key
+            if self.on_press_delay_control():
+                self.button_clicked = ""
+                change_page_by_action = False
+
+            change_page_by_event = self.game_obj.game_events_handler()
+
+            if change_page_by_action or change_page_by_event:
+                break
 
             pygame.display.update()
             

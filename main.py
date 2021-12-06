@@ -31,7 +31,7 @@ class Game:
         self.screen = pygame.display.set_mode(self.screen_size)
         pygame.display.set_caption(get_screen_text("game_tittle"))
         self.game_events = None
-        self.current_link = "game_start"
+        self.current_link = "game_menu"
         self.clock = pygame.time.Clock()
 
         self.screen_fill_bg()
@@ -39,19 +39,22 @@ class Game:
     def screen_fill_bg(self) -> None:
         self.screen.fill(color.black.value)
 
-    def game_events_handler(self) -> None:
+    def game_events_handler(self) -> bool:
         self.game_events = pygame.event.get()
         for event in self.game_events:
             if event.type == pygame.QUIT:
                 self.current_link = "game_quit"
+                return True
 
             elif event.type == pygame.KEYDOWN:
                 if pygame.key.get_pressed()[pygame.K_KP_ENTER]:
                     exit()
                 elif pygame.key.get_pressed()[pygame.K_ESCAPE] and self.current_link == "game_chose_mode":
                     self.current_link = "game_pause_menu"
+                    return True
         
         self.clock.tick(40)
+        return False
 
 links = Link()
 
@@ -72,4 +75,4 @@ game = Game()
 
 while True:
     
-    game.current_link = game_links[game.current_link](game)
+    game_links[game.current_link](game)

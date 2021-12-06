@@ -57,15 +57,15 @@ class Game_links:
 
         return  next_page
 
-    def game_credits(self, screen :pygame.Surface, screen_size :tuple, game_event :pygame.event) -> str:
+    def game_credits(self, game_obj: object) -> str:
         if(not isinstance(self.game_page_object, Game_Credits)):
-            self.game_page_object = Game_Credits(screen, screen_size)
-        return  self.game_page_object.run_link(game_event)
+            self.game_page_object = Game_Credits(game_obj)
+        return  self.game_page_object.run_link()
 
-    def game_quit(self, screen :pygame.Surface, screen_size :tuple, game_event :pygame.event) -> str:
+    def game_quit(self, game_obj: object) -> str:
         if(not isinstance(self.game_page_object, Game_quit)):
-            self.game_page_object = Game_quit(screen, screen_size)
-        return  self.game_page_object.run_link(game_event)
+            self.game_page_object = Game_quit(game_obj)
+        return  self.game_page_object.run_link()
 
     def game_pause_menu(self, screen :pygame.Surface, screen_size :tuple, game_event :pygame.event) -> str:
         if(not isinstance(self.game_page_object, Game_Pause_Menu)):
