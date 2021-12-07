@@ -31,7 +31,7 @@ class Game_over:
         self.game_object = game_obj
         self.button_clicked = ""
         self.y_pos = 390
-        self.game_data = read_from_file("data/end_game_values.txt", "r")[0].split(" ")
+        self.game_data = read_from_file("data/end_game_values.txt", "r", True)[0].split(" ")
         self.delay = 0
         self.game_buttons = {
             "game_loop": "New Game",
@@ -81,14 +81,14 @@ class Game_over:
 
         if bool(int(self.game_data[1])):
             # Winner display
-            font_size = pygame.font.Font.size(fonts.montserrat_size_20.value, get_screen_text("game_win_text"))
-            line = fonts.montserrat_size_20.value.render(get_screen_text("game_win_text"), True, color.green.value)
-            self.game_object.screen.blit(line, (self.game_object.screen_size[0]/2 - font_size[0]/2, self.y_pos))
+            font_size = pygame.font.Font.size(fonts.montserrat_size_20.value, self.game_data[0]+" "+get_screen_text("game_win_text"))
+            line = fonts.montserrat_size_20.value.render(self.game_data[0]+" "+get_screen_text("game_win_text"), True, color.green.value)
         else:
             # Loser Display
-            font_size = pygame.font.Font.size(fonts.montserrat_size_20.value, get_screen_text("game_lost_text"))
-            line = fonts.montserrat_size_20.value.render(get_screen_text("game_lost_text"), True, color.red.value)
-            self.game_object.screen.blit(line, (self.game_object.screen_size[0]/2 - font_size[0]/2, self.y_pos))
+            font_size = pygame.font.Font.size(fonts.montserrat_size_20.value, self.game_data[0]+" "+get_screen_text("game_lost_text"))
+            line = fonts.montserrat_size_20.value.render(self.game_data[0]+" "+get_screen_text("game_lost_text"), True, color.red.value)
+            
+        self.game_object.screen.blit(line, (self.game_object.screen_size[0]/2 - font_size[0]/2, self.y_pos))
 
     def on_press_delay_control(self) -> bool:
         """

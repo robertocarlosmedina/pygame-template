@@ -13,7 +13,7 @@ screen_texts = {
     "game_subtittle": "Case study",
     "game_main_menu_text": "Game Menu",
     "self_play_menu_text": "Play game",
-    "game_result_text": "Game Result",
+    "game_result_text": "Game Over",
     "game_lost_text": "You lose!",
     "game_win_text": "You Win!",
     "game_credits_tittle": "Game credits",
