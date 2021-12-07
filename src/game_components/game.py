@@ -13,7 +13,7 @@ __status__ = "Production"
 import pygame
 from src.support.font import Game_fonts as fonts
 from src.support.colors import Game_color as color
-from src.support.auxiliar_functions import write_from_file
+from src.support.auxiliar_functions import write_from_file, get_screen_text
 from src.support.buttons import horizontalButtonDisplay
 from src.support.input_boxes import draw_input_boxes, verify_input
 
@@ -48,6 +48,15 @@ class Game_loop:
             boxes_dim = (350,40),
             space_between_box = 70
         )
+    
+    def page_tittles(self) -> None:
+        font_size = pygame.font.Font.size(fonts.montserrat_size_40.value, get_screen_text("game_tittle"))
+        line = fonts.montserrat_size_40.value.render(get_screen_text("game_tittle"), True, color.green.value)
+        self.game_obj.screen.blit(line, (self.game_obj.screen_size[0]/2-(font_size[0]/2), 160))
+
+        font_size = pygame.font.Font.size(fonts.montserrat_size_16.value, "for more info read de README.md file")
+        line = fonts.montserrat_size_16.value.render("for more info read de README.md file", True, color.white.value)
+        self.game_obj.screen.blit(line, (self.game_obj.screen_size[0]/2-(font_size[0]/2), 230))
 
     def game_over(self) -> None:
         game_winned, name = False, self.input_boxes["name"][0]
@@ -81,7 +90,8 @@ class Game_loop:
 
             # self.game_over(self.ttt.verificaGanhador())
             self.simple_game_introduction()
-            
+            self.page_tittles()
+
             change_page_by_event = self.game_obj.game_events_handler()
 
             self.input_boxes_control()
@@ -92,7 +102,7 @@ class Game_loop:
                         self.game_over()
                         change_page_by_action = True
                         break
-                    
+
             self.button_clicked = ""
 
             if change_page_by_action or change_page_by_event:
