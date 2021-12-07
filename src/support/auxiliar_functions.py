@@ -9,13 +9,13 @@ screen_texts :dict
 
 surface = pygame.Surface((100, 100))
 screen_texts = {
-    "game_tittle": "Tic Tac Toe",
+    "game_tittle": "Gamepy",
     "game_subtittle": "Case study",
     "game_main_menu_text": "Game Menu",
     "self_play_menu_text": "Play game",
     "game_result_text": "Game Result",
-    "game_lost_text": "Loser",
-    "game_win_text": "Winner",
+    "game_lost_text": "You lose!",
+    "game_win_text": "You Win!",
     "game_credits_tittle": "Game credits",
     "game_quit_text": "Do you really want to finish the game?",
     "data_movements": "Movements",
@@ -105,7 +105,7 @@ def display_game_result_winning_color_info(screen :pygame.Surface, info_name :st
     surface.blit(line, (50-font_size[0]/2, 60))
     screen.blit(surface, (position["x"], position["y"]))
 
-def read_from_file(file_path :str, mode :str, clean_data :bool) -> list:
+def read_from_file(file_path :str, mode :str, clean_data = False) -> list:
     file = open(file_path, mode)
     file_data = file.readlines()
     file.close()

@@ -15,6 +15,10 @@ from src.support.auxiliar_functions import get_screen_text
 from src.support.game_links import Game_links as Link
 from src.support.colors import Game_color as color
 
+
+WIDTH = 700
+HEIGHT = 500
+
 class Game:
 
     pygame.init()
@@ -27,12 +31,13 @@ class Game:
     clock: pygame.time
 
     def __init__(self):
-        self.screen_size = (700, 500)
+        self.screen_size = (WIDTH, HEIGHT)
         self.screen = pygame.display.set_mode(self.screen_size)
         pygame.display.set_caption(get_screen_text("game_tittle"))
         self.game_events = None
-        self.current_link = "game_menu"
+        self.current_link = "game_loop"
         self.clock = pygame.time.Clock()
+        self.clock_frame = 40
 
         self.screen_fill_bg()
     
@@ -49,11 +54,11 @@ class Game:
             elif event.type == pygame.KEYDOWN:
                 if pygame.key.get_pressed()[pygame.K_KP_ENTER]:
                     exit()
-                elif pygame.key.get_pressed()[pygame.K_ESCAPE] and self.current_link == "game_chose_mode":
+                elif pygame.key.get_pressed()[pygame.K_ESCAPE] and self.current_link == "game_loop":
                     self.current_link = "game_pause_menu"
                     return True
         
-        self.clock.tick(40)
+        self.clock.tick(self.clock_frame)
         return False
 
 links = Link()
@@ -67,12 +72,12 @@ game_links = {
     "game_credits": links.game_credits,
     "game_continue": links.continue_game,
     "game_pause_menu": links.game_pause_menu,
-    "game_over": links.game_over,
-    "game_chose_mode": links.chose_game_mode
+    "game_over": links.game_over
 }
 
 game = Game()
 
 while True:
-    
+
     game_links[game.current_link](game)
+    print("Current path: ", game.current_link)

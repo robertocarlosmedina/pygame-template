@@ -34,7 +34,7 @@ class Game_menu:
 
     def start_buttons_info(self):
         self.game_buttons = {
-            "game_chose_mode": "New Game", 
+            "game_loop": "New Game", 
             "game_continue":"Continue", 
             "game_credits":"Credits", 
             "game_quit":"Quit"
@@ -50,8 +50,10 @@ class Game_menu:
             },
         }
     
-    def game_play_buttons(self) -> None:
-
+    def page_tittles(self) -> None:
+        font_size = pygame.font.Font.size(fonts.montserrat_size_30.value, get_screen_text("game_tittle"))
+        line = fonts.montserrat_size_30.value.render(get_screen_text("game_tittle"), True, color.red_2.value)
+        self.game_obj.screen.blit(line, (self.game_obj.screen_size[0]/2-(font_size[0]/2), 25))
         font_size = pygame.font.Font.size(fonts.montserrat_size_22.value, get_screen_text("game_main_menu_text"))
         line = fonts.montserrat_size_22.value.render(get_screen_text("game_main_menu_text"), True, color.white_1.value)
         self.game_obj.screen.blit(
@@ -59,7 +61,8 @@ class Game_menu:
             (self.menus_start_positions["game_menu"]["x"]-(font_size[0]/2)+(self.buttons_size["x"]/2),
                 self.menus_start_positions["game_menu"]["y"]-font_size[1]*2)
         )
-
+    
+    def game_play_buttons(self) -> None:
         self.button_clicked = verticalButtonsDisplay(
             screen = self.game_obj.screen,
             buttons = self.game_buttons.values(),
@@ -80,21 +83,17 @@ class Game_menu:
         self.delay += 1
         return True
 
-    def run_link(self) -> str:
+    def run_link(self) -> None:
         change_page_by_event = change_page_by_action = False
 
         while True:
             self.game_obj.screen_fill_bg()
             
-
             self.mouse_pos = pygame.mouse.get_pos()
-            font_size = pygame.font.Font.size(fonts.montserrat_size_30.value, get_screen_text("game_tittle"))
-            line = fonts.montserrat_size_30.value.render(get_screen_text("game_tittle"), True, color.red_2.value)
-            self.game_obj.screen.blit(line, (self.game_obj.screen_size[0]/2-(font_size[0]/2), 25))
+
+            self.page_tittles()
             draw_header_styled_lines(self.game_obj.screen, self.game_obj.screen_size)
             self.game_play_buttons()
-
-            
 
             if (self.button_clicked != "" ):
                 for key,value in self.game_buttons.items():

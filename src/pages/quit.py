@@ -33,6 +33,11 @@ class Game_quit:
             "x":int((self.game_obj.screen_size[0] / 2) - (self.box_dim["x"] * 2 + 20) / 2),
             "y":int((self.game_obj.screen_size[1] / 2) - (self.box_dim["y"] * 2) / 2) + 20
         }
+    
+    def pages_tittles(self) -> None:
+        font_size = pygame.font.Font.size(fonts.montserrat_size_18.value, get_screen_text("game_quit_text"))
+        line = fonts.montserrat_size_18.value.render(get_screen_text("game_quit_text"), True, color.white.value)
+        self.game_obj.screen.blit(line, (self.game_obj.screen_size[0]/2-(font_size[0]/2), (self.game_obj.screen_size[1]/2-(font_size[1]/2) - 60)))
         
     def draw_quit_menu_buttons(self) -> None:
         self.button_clicked = horizontalButtonDisplay(
@@ -56,10 +61,7 @@ class Game_quit:
             self.mouse_pos = pygame.mouse.get_pos()
             self.game_obj.screen_fill_bg()
 
-            font_size = pygame.font.Font.size(fonts.montserrat_size_18.value, get_screen_text("game_quit_text"))
-            line = fonts.montserrat_size_18.value.render(get_screen_text("game_quit_text"), True, color.white.value)
-            self.game_obj.screen.blit(line, (self.game_obj.screen_size[0]/2-(font_size[0]/2), (self.game_obj.screen_size[1]/2-(font_size[1]/2) - 60)))
-
+            self.pages_tittles()
             self.draw_quit_menu_buttons()
 
             if (self.button_clicked != ""):

@@ -17,8 +17,6 @@ from src.support.auxiliar_functions import draw_header_styled_lines, get_screen_
 
 class Game_Pause_Menu:
 
-    screen :pygame.Surface
-    screen_size :tuple
     game_buttons :list
     button_clicked :str
     mouse_position :tuple
@@ -26,13 +24,12 @@ class Game_Pause_Menu:
     menus_start_positions :dict
     buttons_size :dict
 
-    def __init__(self, screen, screen_size) -> None:
-        self.screen = screen
-        self.screen_size = screen_size
+    def __init__(self, game_obj: object) -> None:
+        self.game_object = game_obj
         self.button_clicked = ""
+        self.delay = 0
         self.game_buttons = {
-            "game_continue":"Continue",
-            "game_loop": "New Game",
+            "game_loop":"Continue",
             "game_menu": "Main Menu",
             "game_quit":"Quit"
         }
@@ -42,23 +39,34 @@ class Game_Pause_Menu:
         }
         self.menus_start_positions = {
             "game_menu":{
-                "x": int(self.screen_size[0]/2 - self.buttons_size["x"]/2),
+                "x": int(self.game_object.screen_size[0]/2 - self.buttons_size["x"]/2),
                 "y":190
             }
         }
+
+    def on_press_delay_control(self) -> bool:
+        if self.delay > 10:
+            return False
+
+        self.delay += 1
+        return True
     
-    def pause_menu_buttons(self) -> None:
+    def page_tittles(self) -> None:
+        font_size = pygame.font.Font.size(fonts.montserrat_size_30.value, get_screen_text("game_tittle"))
+        line = fonts.montserrat_size_30.value.render(get_screen_text("game_tittle"), True, color.white.value)
+        self.game_object.screen.blit(line, (self.game_object.screen_size[0]/2-(font_size[0]/2), 25))
 
         font_size = pygame.font.Font.size(fonts.montserrat_size_22.value, get_screen_text("pause_menu_title"))
         line = fonts.montserrat_size_22.value.render(get_screen_text("pause_menu_title"), True, color.green_1.value)
-        self.screen.blit(
+        self.game_object.screen.blit(
             line, 
             (self.menus_start_positions["game_menu"]["x"]-(font_size[0]/2)+(self.buttons_size["x"]/2),
                 self.menus_start_positions["game_menu"]["y"]-font_size[1]*2)
         )
-
+   
+    def pause_menu_buttons(self) -> None:
         self.button_clicked = verticalButtonsDisplay(
-            screen = self.screen,
+            screen = self.game_object.screen,
             buttons = self.game_buttons.values(),
             start_position = {
                 "x":self.menus_start_positions["game_menu"]["x"],
@@ -70,22 +78,33 @@ class Game_Pause_Menu:
             button_clicked = self.button_clicked
         )
 
-    def run_link(self, game_events :pygame.event) -> str:
-        del game_events
-        self.mouse_pos = pygame.mouse.get_pos()
+    def run_link(self) -> str:
+        change_page_by_event = change_page_by_event = False
 
-        font_size = pygame.font.Font.size(fonts.montserrat_size_30.value, get_screen_text("game_tittle"))
-        line = fonts.montserrat_size_30.value.render(get_screen_text("game_tittle"), True, color.white.value)
-        self.screen.blit(line, (self.screen_size[0]/2-(font_size[0]/2), 25))
+        while True:
+            self.game_object.screen_fill_bg()
+            self.mouse_pos = pygame.mouse.get_pos()
 
-        draw_header_styled_lines(self.screen, self.screen_size)
+            self.page_tittles()
 
-        self.pause_menu_buttons()
-        
-        if (self.button_clicked != "" ):
-            for key,value in self.game_buttons.items():
-                if(self.button_clicked == value):
-                    self.button_clicked = ""
-                    return key
-        
-        return "game_pause_menu"
+            draw_header_styled_lines(self.game_object.screen, self.game_object.screen_size)
+
+            self.pause_menu_buttons()
+
+            if (self.button_clicked != "" ):
+                for key,value in self.game_buttons.items():
+                    if(self.button_clicked == value):
+                        self.game_object.current_link = key
+                        change_page_by_action = True
+                        break
+
+            if self.on_press_delay_control():
+                self.button_clicked = ""
+                change_page_by_action = False
+
+            change_page_by_event = self.game_object.game_events_handler()
+
+            if change_page_by_action or change_page_by_event:
+                break
+
+            pygame.display.update()

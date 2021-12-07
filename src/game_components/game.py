@@ -12,29 +12,79 @@ __status__ = "Production"
 
 from typing import Literal
 import pygame
-from time import sleep
 from src.support.font import Game_fonts as fonts
 from src.support.colors import Game_color as color
 from src.support.auxiliar_functions import write_from_file
+from src.support.buttons import horizontalButtonDisplay
+from src.support.input_boxes import draw_input_boxes
 
 class Game_loop:
     
     game_events: pygame.event        # Hold the current games events
     mouse_position: tuple            # To store and refresh the mouse position
     
-    def __init__(self, screen: pygame.Surface, screen_size: list, game_mode = None ) -> None:
-        self.screen = screen
-        self.screen_size = screen_size
+    def __init__(self, game_obj: object) -> None:
+        self.game_obj = game_obj
+        self.quit_confirmation_buttons = ["Win", "Lose"]
+        self.inputBoxs = {"Your Name": ["", False]}
+        self.button_clicked = ""
+        self.box_dim = {
+            "x":100,
+            "y":40
+        }
+        self.button_start_position = {
+            "x":int((self.game_obj.screen_size[0] / 2) - (self.box_dim["x"] * 2 + 20) / 2),
+            "y":int((self.game_obj.screen_size[1] / 2) - (self.box_dim["y"] * 2) / 2) + 20
+        }
+
+    def input_boxes_control(self) -> None:
+        self.inputBoxs = draw_input_boxes(
+            self.game_obj.screen, 
+            self.inputBoxs,
+            20, 
+            self.game_obj.game_events,
+            self.mouse_position,
+            130,
+            int(self.game_obj.screen_size[0]/2-125),
+            (250,40),
+            70
+        )
 
     def game_over(self) -> Literal["game_over"]:
         write_from_file("./data/end_game_values.txt", "w","string example data to bee displayed in game over")
         
-        return "game_over"
+        self.game_obj.current_link = "game_over"
 
-    def run_link(self, game_events :pygame.event) -> str:
-        self.game_events = game_events
-        self.mouse_position = pygame.mouse.get_pos()
+    def simple_game_introduction(self) -> None:
+        self.button_clicked = horizontalButtonDisplay(
+            screen = self.game_obj.screen,
+            buttons = self.quit_confirmation_buttons,
+            start_position = {
+                "x": self.button_start_position["x"],
+                "y": self.button_start_position["y"]
+            },
+            box_dim = self.box_dim,
+            mouse_pos = self.mouse_position,
+            font = fonts.montserrat_size_16.value,
+            button_clicked = self.button_clicked
+        )
+
+    def run_link(self) -> None:
+        change_page_by_action = change_page_by_event = False
+
+        while True:
+            self.game_obj.screen_fill_bg()
+
+            self.mouse_position = pygame.mouse.get_pos()
 
             # return self.game_over(self.ttt.verificaGanhador())
-        
-        return "game_loop"
+            self.simple_game_introduction()
+            
+            change_page_by_event = self.game_obj.game_events_handler()
+
+            self.input_boxes_control()
+
+            if change_page_by_action or change_page_by_event:
+                break
+
+            pygame.display.update()
