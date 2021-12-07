@@ -1,6 +1,6 @@
 __author__ = "Roberto Medina"
 __copyright__ = "Copyright 2021, Roberto Carlos Medina"
-__version__ = "0.0.1"
+__version__ = "0.1.1"
 __maintainer__ = "Roberto Medina"
 __email__ = "robertocarlosmedina.dev@gmail.com "
 __status__ = "Production"
@@ -51,6 +51,9 @@ class Game_over:
         }
     
     def menu_buttons(self) -> None:
+        """
+            Method to draw this page's menu and buttons.
+        """
         font_size = pygame.font.Font.size(fonts.montserrat_size_22.value, get_screen_text("game_result_text"))
         line = fonts.montserrat_size_22.value.render(get_screen_text("game_result_text"), True, color.white_1.value)
         self.game_object.screen.blit(
@@ -58,7 +61,6 @@ class Game_over:
             (self.menus_start_positions["game_menu"]["x"]-(font_size[0]/2)+(self.buttons_size["x"]/2),
                 self.menus_start_positions["game_menu"]["y"]-font_size[1]*2)
         )
-
         self.button_clicked = verticalButtonsDisplay(
             screen = self.game_object.screen,
             buttons = self.game_buttons.values(),
@@ -73,17 +75,25 @@ class Game_over:
         )
     
     def draw_game_results(self) -> None:
+        """
+            This method is guest an example of who the game over info can be displaed.
+        """
 
-        # Winner display
-        font_size = pygame.font.Font.size(fonts.montserrat_size_18.value, get_screen_text("game_win_text"))
-        line = fonts.montserrat_size_18.value.render(get_screen_text("game_win_text"), True, color.green.value)
-        self.game_object.screen.blit(line, (self.game_object.screen_size[0]/2 - font_size[0]/2, self.y_pos))
-
-        # Loser Display
-        # line = fonts.montserrat_size_18.value.render(get_screen_text("game_lost_text"), True, color.red.value)
-        # self.game_object.screen.blit(line, (519, self.y_pos + 55))
+        if bool(int(self.game_data[1])):
+            # Winner display
+            font_size = pygame.font.Font.size(fonts.montserrat_size_20.value, get_screen_text("game_win_text"))
+            line = fonts.montserrat_size_20.value.render(get_screen_text("game_win_text"), True, color.green.value)
+            self.game_object.screen.blit(line, (self.game_object.screen_size[0]/2 - font_size[0]/2, self.y_pos))
+        else:
+            # Loser Display
+            font_size = pygame.font.Font.size(fonts.montserrat_size_20.value, get_screen_text("game_lost_text"))
+            line = fonts.montserrat_size_20.value.render(get_screen_text("game_lost_text"), True, color.red.value)
+            self.game_object.screen.blit(line, (self.game_object.screen_size[0]/2 - font_size[0]/2, self.y_pos))
 
     def on_press_delay_control(self) -> bool:
+        """
+            Method to control the day in the beginning of the page.
+        """
         if self.delay > 10:
             return False
 
