@@ -8,6 +8,8 @@ __status__ = "Production"
 """
     Main file for the template.
     This is where the main loop starts.
+    And from here according to the page that the player are it will be to the main
+    loop of that page.
 """
 
 import pygame
@@ -15,20 +17,21 @@ from src.support.auxiliar_functions import get_screen_text
 from src.support.game_links import Game_links as Link
 from src.support.colors import Game_color as color
 
-
 WIDTH = 700
 HEIGHT = 500
+
+game_links: dict            # To store all the links an possible page to go on the game
 
 class Game:
 
     pygame.init()
 
-    screen_size: tuple
-    screen: pygame.Surface
-    current_link: str
-    game_events: pygame.event
-    game_links: dict
-    clock: pygame.time
+    screen_size: tuple              # To be used in the other class loop's
+    screen: pygame.Surface          # The game Surface
+    current_link: str               # Variable to control the link's and current state
+    game_events: pygame.event       # To store all the event's that might happen
+    clock: pygame.time              # The frame range to be used
+    clock_frame: int                # The value to be used on the clock
 
     def __init__(self):
         self.screen_size = (WIDTH, HEIGHT)
@@ -42,9 +45,16 @@ class Game:
         self.screen_fill_bg()
     
     def screen_fill_bg(self) -> None:
+        """
+            Setting the background color.
+        """
         self.screen.fill(color.black.value)
 
     def game_events_handler(self) -> bool:
+        """
+            Control / Handle the game event's.
+            And then return if there is a change in the current link.
+        """
         self.game_events = pygame.event.get()
         for event in self.game_events:
             if event.type == pygame.QUIT:
@@ -63,7 +73,6 @@ class Game:
 
 links = Link()
 
-# Making the dict of the game links with link name and the related function
 game_links = {
     "game_start": links.start_game,
     "game_menu": links.game_main_menu,
@@ -78,6 +87,8 @@ game_links = {
 game = Game()
 
 while True:
-
+    """
+        Main Loop of the game.
+    """
     game_links[game.current_link](game)
     print("Current path: ", game.current_link)
