@@ -1,5 +1,16 @@
+__author__ = "Roberto Medina"
+__copyright__ = "Copyright 2021, Roberto Carlos Medina"
+__version__ = "0.1.5"
+__maintainer__ = "Roberto Medina"
+__email__ = "robertocarlosmedina.dev@gmail.com "
+__status__ = "Production"
+
 from enum import Enum
 import pygame
+
+"""
+    Class that contain all the fonts used in the game.
+"""
 
 class Game_fonts(Enum):
     pygame.init()

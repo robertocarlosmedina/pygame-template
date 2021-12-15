@@ -6,6 +6,7 @@ __email__ = "robertocarlosmedina.dev@gmail.com "
 __status__ = "Production"
 
 """
+    Class where all the available color are declared in an enum class.
 """
 
 from enum import Enum
@@ -31,5 +32,8 @@ class Game_color(Enum):
     red_2 = (192, 0, 0)
 
 # this is to return the RGB value of the color
-def rgbColor(co):
+def rgbColor(co) -> tuple:
+    """
+        Return a tuple of the the color givem the color name
+    """
     return [color_e.value for color_name, color_e in Game_color.__members__.items() if co == color_name][0]

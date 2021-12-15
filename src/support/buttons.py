@@ -6,6 +6,9 @@ __email__ = "robertocarlosmedina.dev@gmail.com "
 __status__ = "Production"
 
 """
+    This file contain some method's that can be use to draw an list of buttons on the screen.
+    It can be done both in Horizontal and Vertical.
+    And it is possible to declare more styled buttons to.
 """
 
 import pygame
@@ -17,6 +20,12 @@ def verticalButtonsDisplay(screen :pygame.Surface, buttons :list, start_position
         select_color = color.green.value, hover_color = color.grey.value, 
         button_color = color.blue.value, fill_box = 2, text_color = color.blue.value,
         hover_text_color = color.white.value, select_text_color = color.black.value) -> str:
+    """
+        Method to draw Vertical buttons on the screen.
+        Given a list, and some proper style in the params, this draw the buttons
+        and also make hover efect on them. And if one button is clicked on that list it return it's
+        value.
+    """
 
     for button in buttons:
         font_size = pygame.font.Font.size(font, button)
@@ -58,6 +67,12 @@ def horizontalButtonDisplay(screen :pygame.Surface, buttons :list, start_positio
         select_color = color.green.value, hover_color = color.grey.value, 
         button_color = color.blue.value, fill_box = 2, text_color = color.blue.value,
         hover_text_color = color.white.value, select_text_color = color.black.value) -> str:
+    """
+        Method to draw Horizontal buttons on the screen.
+        Given a list, and some proper style in the params, this draw the buttons
+        and also make hover efect on them. And if one button is clicked on that list it return it's
+        value.
+    """
 
     for button in buttons:
         font_size = pygame.font.Font.size(font, button)

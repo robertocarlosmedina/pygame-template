@@ -17,7 +17,6 @@ def draw_input_boxes(screen: pygame.Surface, input_boxes: dict, input_limit: int
         Method to control and draw all the information about the input boxes.
         Their state and their content.
     """
-
     for key, box_info in input_boxes.items():
         click = pygame.mouse.get_pressed(3)
 
@@ -89,7 +88,6 @@ def verify_input(input_boxes: dict) -> bool:
     """
         Method that verify if all the inputs are filled.
     """
-
     for value in input_boxes.values():
         if value[0] == "" or value[0] == " " or len(value[0])<2:
             return False

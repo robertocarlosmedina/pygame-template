@@ -6,6 +6,7 @@ __email__ = "robertocarlosmedina.dev@gmail.com "
 __status__ = "Production"
 
 """
+    Class of the credits page.
 """
 
 import pygame
@@ -17,12 +18,11 @@ from src.support.auxiliar_functions import draw_header_styled_lines, get_screen_
 
 class Game_Credits:
 
-    game_buttons :list
-    button_clicked :str
-    mouse_position :tuple
-    menu_tittles :dict
-    menus_start_positions :dict
-    buttons_size :dict
+    game_buttons :dict                # Store a dict of all de buttons to display
+    button_clicked :str               # Store the value of the button that was cliked
+    mouse_position :tuple             # To store the mouse possition        
+    menus_start_positions :dict       # Store the menus button start possition
+    buttons_size :dict                # Store the information about the button size's
 
     def __init__(self, game_obj) -> None:
         self.game_obj = game_obj
@@ -42,6 +42,9 @@ class Game_Credits:
         }
     
     def credits_content(self) -> None:
+        """
+            Method to draw the headers.
+        """
 
         font_size = pygame.font.Font.size(fonts.montserrat_size_22.value, get_screen_text("game_credits_tittle"))
         line = fonts.montserrat_size_22.value.render(get_screen_text("game_credits_tittle"), True, color.green.value)
@@ -61,6 +64,7 @@ class Game_Credits:
         )
         
         y = font_size[1] + 20
+        # To draw phases line by line
         for text in get_screen_text("author_text"):
             font_size = pygame.font.Font.size(fonts.montserrat_size_16.value, text)
             line = fonts.montserrat_size_16.value.render(text, True, color.white_1.value)
@@ -72,6 +76,9 @@ class Game_Credits:
             y += font_size[1]
 
     def draw_menu_buttons(self) -> None:
+        """
+            Method to draw all the buttons.
+        """
         self.button_clicked = verticalButtonsDisplay(
             screen = self.game_obj.screen,
             buttons = self.game_buttons.values(),
@@ -86,6 +93,9 @@ class Game_Credits:
         )
 
     def run_link(self) -> str:
+        """
+            Main loop of this page.
+        """
         change_page_by_action = change_page_by_action = False
 
         while True: 

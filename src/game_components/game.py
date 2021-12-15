@@ -37,6 +37,9 @@ class Game_loop:
         }
 
     def input_boxes_control(self) -> None:
+        """
+            Method to draw the imput box on the screen.
+        """
         self.input_boxes = draw_input_boxes(
             screen = self.game_obj.screen, 
             input_boxes = self.input_boxes,
@@ -50,6 +53,9 @@ class Game_loop:
         )
     
     def page_tittles(self) -> None:
+        """
+            To show the header tittles.
+        """
         font_size = pygame.font.Font.size(fonts.montserrat_size_40.value, get_screen_text("game_tittle"))
         line = fonts.montserrat_size_40.value.render(get_screen_text("game_tittle"), True, color.green.value)
         self.game_obj.screen.blit(line, (self.game_obj.screen_size[0]/2-(font_size[0]/2), 160))
@@ -59,6 +65,9 @@ class Game_loop:
         self.game_obj.screen.blit(line, (self.game_obj.screen_size[0]/2-(font_size[0]/2), 230))
 
     def game_over(self) -> None:
+        """
+            Method that handle the game over event before passing to the game over page.
+        """
         game_winned, name = False, self.input_boxes["name"][0]
         if self.button_clicked == "Win":
             game_winned = True
@@ -67,6 +76,9 @@ class Game_loop:
         self.game_obj.current_link = "game_over"
 
     def simple_game_introduction(self) -> None:
+        """
+            Method to draw vertical buttons on the screen.
+        """
         self.button_clicked = horizontalButtonDisplay(
             screen = self.game_obj.screen,
             buttons = self.quit_confirmation_buttons.values(),
@@ -81,6 +93,9 @@ class Game_loop:
         )
 
     def run_link(self) -> None:
+        """
+            Main loop of this game page.
+        """
         change_page_by_action = change_page_by_event = False
 
         while True:
