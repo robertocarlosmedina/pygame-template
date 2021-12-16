@@ -12,10 +12,7 @@ __status__ = "Production"
     loop of that page.
 """
 
-import pygame
-from src.support.auxiliar_functions import get_screen_text
 from src.support.game_links import Game_links as Link
-from src.support.colors import Game_color as color
 from src.support.game_configurations import Game
 
 game_links: dict            # To store all the links an possible page to go on the game
@@ -39,6 +36,7 @@ game_links = {
 }
 
 game = Game()
+# game.current_link = "game_menu"
 
 while True:
     """

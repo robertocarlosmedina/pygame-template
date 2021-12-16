@@ -13,7 +13,7 @@ __status__ = "Production"
 import pygame
 from src.support.font import Game_fonts as fonts
 from src.support.colors import Game_color as color
-from src.support.auxiliar_functions import write_from_file, get_screen_text
+from src.support.auxiliar_functions import write_to_file, get_screen_text
 from src.support.buttons import horizontalButtonDisplay
 from src.support.input_boxes import draw_input_boxes, verify_input
 
@@ -72,7 +72,7 @@ class Game_loop:
         if self.button_clicked == "Win":
             game_winned = True
 
-        write_from_file("./data/end_game_values.txt", "w", f"{name} {int(game_winned)}")
+        write_to_file("./data/end_game_values.txt", "w", f"{name} {int(game_winned)}")
         self.game_obj.current_link = "game_over"
 
     def simple_game_introduction(self) -> None:

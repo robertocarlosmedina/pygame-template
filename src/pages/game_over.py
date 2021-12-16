@@ -6,6 +6,7 @@ __email__ = "robertocarlosmedina.dev@gmail.com "
 __status__ = "Production"
 
 """
+    Class that represent the Game Over page.
 """
 
 import pygame
@@ -18,7 +19,7 @@ from src.support.auxiliar_functions import draw_header_styled_lines, \
 
 class Game_over:
 
-    game_buttons :list
+    game_buttons :dict              
     button_clicked :str
     mouse_position :tuple
     menu_tittles :dict

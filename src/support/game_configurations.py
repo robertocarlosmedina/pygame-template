@@ -6,10 +6,7 @@ __email__ = "robertocarlosmedina.dev@gmail.com "
 __status__ = "Production"
 
 """
-    Main file for the template.
-    This is where the main loop starts.
-    And from here according to the page that the player are it will be to the main
-    loop of that page.
+    Class that represente the screen configuration for the game.
 """
 
 import pygame
@@ -47,7 +44,7 @@ class Game:
         self.screen = pygame.display.set_mode(self.screen_size)
         pygame.display.set_caption(get_screen_text("game_tittle"))
         self.game_events = None
-        self.current_link = "game_loop"
+        self.current_link = "game_start"
         self.clock = pygame.time.Clock()
         self.clock_frame = CLOCK_FRAME
         self.background_color = color.black.value

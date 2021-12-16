@@ -27,6 +27,9 @@ screen_texts = {
 
 
 def draw_header_styled_lines(screen :pygame.Surface, screen_size :tuple) -> None:
+    """
+        Function that draw the header separetion line.
+    """
     pygame.draw.line(
         screen, 
         color.blue.value,
@@ -49,6 +52,9 @@ def draw_header_styled_lines(screen :pygame.Surface, screen_size :tuple) -> None
     )
 
 def draw_vertical_styled_lines(screen :pygame.Surface, screen_size :tuple) -> None:
+    """
+        Function that draw the screen separetion line.
+    """
     pygame.draw.line(
         screen, 
         color.green.value,
@@ -89,6 +95,9 @@ def display_game_result_info(screen :pygame.Surface, info_name :str, value :int,
     screen.blit(surface, (position["x"], position["y"]))
 
 def display_game_result_winning_color_info(screen :pygame.Surface, info_name :str, value :int, position :dict) -> None:
+    """
+        Function that draw all game result info,  according to the game result data.
+    """
     font_size :int
     surface.fill(color.black.value)
     pygame.draw.rect(
@@ -106,6 +115,9 @@ def display_game_result_winning_color_info(screen :pygame.Surface, info_name :st
     screen.blit(surface, (position["x"], position["y"]))
 
 def read_from_file(file_path :str, mode :str, clean_data = False) -> list:
+    """
+        Function to read data from a specific and return it.
+    """
     file = open(file_path, mode)
     file_data = file.readlines()
     file.close()
@@ -116,10 +128,16 @@ def read_from_file(file_path :str, mode :str, clean_data = False) -> list:
 
     return file_data
 
-def write_from_file(file_path :str, mode :str, value :str) -> None:
+def write_to_file(file_path :str, mode :str, value :str) -> None:
+    """
+        Function to write into a file. 
+    """
     file = open(file_path, mode)
     file.write(value)
     file.close()
 
 def get_screen_text(text_name :str):
+    """
+        Function to get a text from the dict of the games text's
+    """
     return screen_texts[text_name]
