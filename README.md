@@ -1,12 +1,12 @@
 # pygame-template
 This is a project to help people to start making game projects in pygame. Allowing them to start from an provided template.
 
-# How to use
+## How to use
 
-# Generate new page
+## Generate new page
 
-# Dependencies
+## Dependencies
 
-# Related works
+## Related works
 
-# Licence
+## Licence
