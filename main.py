@@ -19,11 +19,13 @@ game_links: dict            # To store all the links an possible page to go on t
 
 links = Link()
 
-# To add a new link here, it's necessary to declare that link in the Game_links class
-# and the creating a new element to this dict, in whitch the Id of the element, will
-# be the name of the link, and the value will be the method to call relative to link.
-# And then to call the page it just call the function like this:
-# game_links["name_of_the_link"](game)
+"""
+  To add a new link here, it's necessary to declare that link in the Game_links class
+  and the creating a new element to this dict, in whitch the Id of the element, will
+  be the name of the link, and the value will be the method to call relative to link.
+  And then to call the page it just call the function like this:
+  game_links["name_of_the_link"](game)
+"""
 game_links = {
     "game_start": links.start_game,
     "game_menu": links.game_main_menu,
