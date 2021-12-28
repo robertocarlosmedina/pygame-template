@@ -6,7 +6,9 @@ __email__ = "robertocarlosmedina.dev@gmail.com "
 __status__ = "Production"
 
 """
-    Class that represente the screen configuration for the game.
+    Class to control the game screen and event's configuration.
+    And also is possible to pass variable of control on this class, 
+    This because it will be passed by the other class.
 """
 
 import pygame
@@ -21,11 +23,6 @@ CLOCK_FRAME = 40
 
 
 class Game:
-    """
-        Class to control the game screen and event's configuration.
-        And also is possible to pass variable of control on this class, 
-        This because it will be passed by the other class.
-    """
 
     pygame.init()
 
